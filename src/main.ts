@@ -28,7 +28,9 @@ async function main() {
     // message handler
     .on("message", async (message: any) => {
       try {
-        console.log(`📨 ${message}`);
+        if (message.type !== 0) { // check message type
+          console.log(`📨 ${message}`);
+        }
         // handle message for customized task handlers
         await chatGPTBot.onCustimzedTask(message);
         // handle message for chatGPT bot
