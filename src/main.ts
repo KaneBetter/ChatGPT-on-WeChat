@@ -28,9 +28,9 @@ async function main() {
     // message handler
     .on("message", async (message: any) => {
       try {
-        if (message.type !== 0) { // check message type
-          console.log(`📨 ${message}`);
-        }
+        // if message's type is unknown, skip it
+        if (message.type() == weChatBot.Message.Type.Unknown) { return; }
+        console.log(`📨 ${message}`);
         // handle message for customized task handlers
         await chatGPTBot.onCustimzedTask(message);
         // handle message for chatGPT bot
