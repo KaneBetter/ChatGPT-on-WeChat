@@ -83,10 +83,10 @@ export class ChatGPTBot {
       // Hint user the trigger keyword in private chat and group chat
       console.log(`🤖️ ChatGPT name is: ${this.botName}`);
       console.log(
-        `🎯 Trigger keyword in private chat is: ${this.chatgptTriggerKeyword}`
+        `🎯 Trigger keyword in private chat is: any message`
       );
       console.log(
-        `🎯 Trigger keyword in group chat is: ${this.chatGroupTriggerKeyword}`
+        `🎯 Trigger keyword in group chat is: any message starts with @${this.botName}`
       );
       // Run an initial test to confirm API works fine
       await this.onChatGPT("Say Hello World");
@@ -121,9 +121,7 @@ export class ChatGPTBot {
     const chatgptTriggerKeyword = this.chatgptTriggerKeyword;
     let triggered = false;
     if (isPrivateChat) {
-      triggered = chatgptTriggerKeyword
-        ? text.startsWith(chatgptTriggerKeyword)
-        : true;
+      triggered = true;
     } else {
       // due to un-unified @ lagging character, ignore it and just match:
       //    1. the "@username" (mention)
@@ -135,7 +133,7 @@ export class ChatGPTBot {
       const followByTriggerKeyword = textWithoutMention.startsWith(
         this.chatgptTriggerKeyword
       );
-      triggered = startsWithMention && followByTriggerKeyword;
+      triggered = startsWithMention && true;
     }
     if (triggered) {
       console.log(`🎯 ChatGPT triggered: ${text}`);
